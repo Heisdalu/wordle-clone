@@ -5,6 +5,9 @@ export default {
     screens: {
       md: "768px",
     },
+    fontFamily: {
+      inter: "Inter, sans-serif",
+    },
     extend: {
       borderWidth: {
         1: "1px",
