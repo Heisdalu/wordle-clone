@@ -16,6 +16,9 @@ export default {
       borderColor: {
         gray_b: "#D3D6DA",
       },
+      colors: {
+        gen: "#D3D6DA",
+      },
     },
   },
   plugins: [],
