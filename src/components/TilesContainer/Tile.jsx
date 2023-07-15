@@ -12,7 +12,7 @@ const Tile = () => {
     <input
       type="text"
       onChange={changeHandler}
-      className="h-[3.25rem] w-[3.25rem] border-1 text-center text-[2rem] font-inter font uppercase font-[700]"
+      className="h-[3.25rem] w-[3.25rem] border-[2px] text-center text-[2rem] font-inter font uppercase font-[700]"
     />
   );
 };
