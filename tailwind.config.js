@@ -12,6 +12,9 @@ export default {
       borderWidth: {
         1: "1px",
       },
+      borderColor: {
+        gray_b: "#D3D6DA",
+      },
     },
   },
   plugins: [],
