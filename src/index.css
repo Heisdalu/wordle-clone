@@ -2,3 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+  .app {
+    perspective: 1000px;
+    perspective-origin: top;
+  }
+  .animate {
+    background-color: white;
+    animation-name: yes;
+    animation-duration: 1s;
+    animation-fill-mode: forwards;
+    transform-style: preserve-3d;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes yes {
+    50% {
+      transform: rotateX(90deg);
+      transform-origin: center;
+      background-color: white;
+    }
+    100% {
+      transform: rotateX(0deg);
+      transform-origin: center;
+      background-color: green;
+    }
+  }
+}

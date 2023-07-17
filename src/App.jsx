@@ -3,8 +3,9 @@ import Keyboard from "./components/KeyBoard/Keyboard";
 import TilesMain from "./components/TilesContainer/TilesMain";
 
 const App = () => {
+  
   return (
-    <div>
+    <div className="app">
       <Header />
       <TilesMain />
       <Keyboard />

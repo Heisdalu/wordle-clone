@@ -1,38 +1,15 @@
 import Context from "./Context";
 import { useReducer } from "react";
-import { LISTINDEX, RESETINDEX, TILEINDEX } from "../constants/constant";
+import * as consts from "../constants/constant";
+import { dataReducer } from "../lib/Reducer";
 
 const intial = {
   listIndex: 1,
   tileIndex: 1,
+  userWord: [],
   updateIndex: () => {},
   resetIndex: () => {},
-};
-
-const dataReducer = (state, action) => {
-  if (action.type === LISTINDEX) {
-    return {
-      ...state,
-      listIndex: action.value,
-    };
-  }
-
-  if (action.type === TILEINDEX) {
-    return {
-      ...state,
-      tileIndex: action.value,
-    };
-  }
-
-  if (action.type === RESETINDEX) {
-    return {
-      ...state,
-      listIndex: 1,
-      tileIndex: 1,
-    };
-  }
-
-  return state;
+  updateWord: () => {},
 };
 
 // eslint-disable-next-line react/prop-types
@@ -43,14 +20,28 @@ export const ContextProvider = ({ children }) => {
     dispatch(obj);
   };
 
+  const updateWord = (obj) => {
+    const word = [...obj.userWord];
+    if (consts.INCREASE_WORD === obj.type) {
+      word[obj.index - 1] = obj.value;
+      dispatch({ type: consts.INCREASE_WORD, value: word });
+    }
+    
+    if (consts.DECREASE_WORD === obj.type) {
+      word[obj.index - 1] = "";
+      dispatch({ type: consts.DECREASE_WORD, value: word });
+    }
+  };
+
   const resetIndex = () => {
-    dispatch({ type: RESETINDEX });
+    dispatch({ type: consts.RESETINDEX });
   };
 
   const contextState = {
     ...dataState,
     updateIndex,
     resetIndex,
+    updateWord,
   };
 
   return <Context.Provider value={contextState}>{children}</Context.Provider>;
