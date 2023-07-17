@@ -7,26 +7,63 @@
     perspective: 1000px;
     perspective-origin: top;
   }
+
+  .scaled {
+    animation-name: scaled;
+    animation-duration: .5s;
+    animation-timing-function: linear;
+  }
+
+  @keyframes scaled {
+    0% {
+      transform: scale(1);
+    }
+
+    50% {
+      transform: scale(1.05);
+      border: 1px solid 1px solid black;
+    }
+
+    100% {
+      transform: scale(1);
+       border: 1px solid 1px solid #D3D6DA;
+    }
+  }
+
   .animate {
-    background-color: white;
+    background-color: "#D3D6DA";
     animation-name: yes;
     animation-duration: 1s;
     animation-fill-mode: forwards;
     transform-style: preserve-3d;
     animation-timing-function: linear;
-    animation-iteration-count: infinite;
+    animation-iteration-count: 1;
+    animation-delay: var(--delay);
   }
 
   @keyframes yes {
+    0% {
+      background-color: #ffffff;
+    }
+
     50% {
       transform: rotateX(90deg);
       transform-origin: center;
-      background-color: white;
+      background-color: #fff;
+      opacity: 0;
     }
+
+    51% {
+      transform: rotateX(270deg);
+      background-color: var(--color);
+    }
+
     100% {
-      transform: rotateX(0deg);
+      transform: rotateX(360deg);
       transform-origin: center;
-      background-color: green;
+      background-color: var(--color);
+      border: 1px solid var(--color);
+      opacity: 1;
     }
   }
 }
