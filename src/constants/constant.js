@@ -5,3 +5,4 @@ export const REDUCE_LISTINDEX = "REDUCE_LISTINDEX";
 export const RESETINDEX = "RESETINDEX";
 export const INCREASE_WORD = "INCREASE_WORD";
 export const DECREASE_WORD = "DECREASE_WORD";
+export const WORLDE = "WORDLE";

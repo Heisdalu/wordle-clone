@@ -2,11 +2,14 @@ import Context from "./Context";
 import { useReducer } from "react";
 import * as consts from "../constants/constant";
 import { dataReducer } from "../lib/Reducer";
+import { dataFunc, saveData } from "../constants/helper";
 
 const intial = {
+  currentDate: +new Date(),
   listIndex: 1,
   tileIndex: 1,
   userWord: [],
+  allUserInputWord: [],
   updateIndex: () => {},
   resetIndex: () => {},
   updateWord: () => {},
@@ -14,22 +17,41 @@ const intial = {
 
 // eslint-disable-next-line react/prop-types
 export const ContextProvider = ({ children }) => {
-  const [dataState, dispatch] = useReducer(dataReducer, intial);
+  const local = localStorage.getItem(consts.WORLDE);
+  const initialDate = local ? dataFunc(local) : intial;
+
+  //   console.log(!!local, initialDate);
+
+  const [dataState, dispatch] = useReducer(dataReducer, initialDate);
 
   const updateIndex = (obj) => {
     dispatch(obj);
   };
 
   const updateWord = (obj) => {
+    const allUserInputArr = [...obj.allUserInputWord];
     const word = [...obj.userWord];
     if (consts.INCREASE_WORD === obj.type) {
       word[obj.index - 1] = obj.value;
-      dispatch({ type: consts.INCREASE_WORD, value: word });
+      //   console.log(obj.listIndex);
+      allUserInputArr[obj.listIndex - 1] = word.join("");
+      console.log(allUserInputArr);
+      dispatch({
+        type: consts.INCREASE_WORD,
+        value: word,
+        allWordValue: allUserInputArr,
+      });
     }
-    
+
     if (consts.DECREASE_WORD === obj.type) {
       word[obj.index - 1] = "";
-      dispatch({ type: consts.DECREASE_WORD, value: word });
+      allUserInputArr[obj.listIndex - 1] = word.join("");
+
+      dispatch({
+        type: consts.DECREASE_WORD,
+        value: word,
+        allWordValue: allUserInputArr,
+      });
     }
   };
 
@@ -43,6 +65,9 @@ export const ContextProvider = ({ children }) => {
     resetIndex,
     updateWord,
   };
+  //   console.log(contextState);
+
+  local ? saveData(dataState) : saveData(intial);
 
   return <Context.Provider value={contextState}>{children}</Context.Provider>;
 };

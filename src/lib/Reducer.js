@@ -11,7 +11,7 @@ export const dataReducer = (state, action) => {
   if (action.type === consts.TILEINDEX) {
     return {
       ...state,
-      tileIndex: action.value,
+      tileIndex: state.tileIndex + 1 > 5 ? 5 : state.tileIndex + 1,
     };
   }
 
@@ -31,15 +31,17 @@ export const dataReducer = (state, action) => {
   }
 
   if (action.type === consts.INCREASE_WORD) {
-      return {
-          ...state,
-          userWord: action.value,
-        };
-    }
-    if (action.type === consts.DECREASE_WORD) {
     return {
       ...state,
-      userWord: action.value
+      userWord: action.value,
+      allUserInputWord: action.allWordValue,
+    };
+  }
+  if (action.type === consts.DECREASE_WORD) {
+    return {
+      ...state,
+      userWord: action.value,
+      allUserInputWord: action.allWordValue,
     };
   }
 
