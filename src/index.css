@@ -8,9 +8,13 @@
     perspective-origin: top;
   }
 
+  input:focus {
+    outline: none;
+  }
+
   .scaled {
     animation-name: scaled;
-    animation-duration: .5s;
+    animation-duration: 0.5s;
     animation-timing-function: linear;
   }
 
@@ -20,13 +24,13 @@
     }
 
     50% {
-      transform: scale(1.05);
-      border: 1px solid 1px solid black;
+      transform: scale(1.1);
+      border: 2px solid 1px solid black;
     }
 
     100% {
       transform: scale(1);
-       border: 1px solid 1px solid #D3D6DA;
+      border: 1px solid 1px solid #d3d6da;
     }
   }
 
@@ -62,8 +66,39 @@
       transform: rotateX(360deg);
       transform-origin: center;
       background-color: var(--color);
+      color: #fff;
       border: 1px solid var(--color);
       opacity: 1;
+    }
+  }
+
+  .moveLeftRight {
+    animation-name: moveLeft;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+    animation-iteration-count: 1;
+  }
+
+  @keyframes moveLeft {
+    0% {
+      transform: translateX(0);
+    }
+
+    25% {
+      transform: translateX(5px);
+    }
+    50% {
+      transform: translateX(-5px);
+    }
+    75% {
+      transform: translateX(5px);
+    }
+    85% {
+      transform: translateX(-5px);
+    }
+    100% {
+      transform: translateX(0px);
     }
   }
 }

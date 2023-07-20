@@ -22,7 +22,7 @@ export const dataReducer = (state, action) => {
     };
   }
 
-  if (action.type === consts.RESETINDEX) {
+  if (action.type === consts.INCTREASE_LISTINDEX) {
     return {
       ...state,
       listIndex: 1,
@@ -42,6 +42,22 @@ export const dataReducer = (state, action) => {
       ...state,
       userWord: action.value,
       allUserInputWord: action.allWordValue,
+    };
+  }
+
+  if (action.type === consts.UPDATE_UNIQUE) {
+    return {
+      ...state,
+      unique: action.value,
+    };
+  }
+  if (action.type === consts.UPDATEVALID_WORD_STATE) {
+    return {
+      ...state,
+      tileIndex: 1,
+      userWord: [],
+      listIndex: state.listIndex + 1 >= 6 ? 6 : state.listIndex + 1,
+      allUserInputWord: action.value,
     };
   }
 

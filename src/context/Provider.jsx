@@ -6,12 +6,13 @@ import { dataFunc, saveData } from "../constants/helper";
 
 const intial = {
   currentDate: +new Date(),
+  unique: null,
   listIndex: 1,
   tileIndex: 1,
   userWord: [],
-  allUserInputWord: [],
+  allUserInputWord: consts.RESULT_OBJ,
   updateIndex: () => {},
-  resetIndex: () => {},
+  increaseListIndex: () => {},
   updateWord: () => {},
 };
 
@@ -34,7 +35,8 @@ export const ContextProvider = ({ children }) => {
     if (consts.INCREASE_WORD === obj.type) {
       word[obj.index - 1] = obj.value;
       //   console.log(obj.listIndex);
-      allUserInputArr[obj.listIndex - 1] = word.join("");
+      // console.log(allUserInputArr, allUserInputArr[obj.index - 1]);
+      allUserInputArr[obj.listIndex - 1].wordInputted = word.join("");
       console.log(allUserInputArr);
       dispatch({
         type: consts.INCREASE_WORD,
@@ -45,7 +47,7 @@ export const ContextProvider = ({ children }) => {
 
     if (consts.DECREASE_WORD === obj.type) {
       word[obj.index - 1] = "";
-      allUserInputArr[obj.listIndex - 1] = word.join("");
+      allUserInputArr[obj.listIndex - 1].wordInputted = word.join("");
 
       dispatch({
         type: consts.DECREASE_WORD,
@@ -55,15 +57,31 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
-  const resetIndex = () => {
+  const increaseListIndex = () => {
     dispatch({ type: consts.RESETINDEX });
+  };
+
+  const updateUnique = (value) => {
+    dispatch({ type: consts.UPDATE_UNIQUE, value: value });
+  };
+
+  const checkWordisValidState = (obj) => {
+    const allObj = [...obj.allUserInputWord];
+    allObj[obj.listIndex - 1].state = obj.colorState;
+    allObj[obj.listIndex - 1].filled = true;
+    dispatch({
+      type: consts.UPDATEVALID_WORD_STATE,
+      value: allObj,
+    });
   };
 
   const contextState = {
     ...dataState,
     updateIndex,
-    resetIndex,
+    increaseListIndex,
     updateWord,
+    updateUnique,
+    checkWordisValidState,
   };
   //   console.log(contextState);
 

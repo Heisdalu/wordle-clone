@@ -1,11 +1,11 @@
-import { useContext } from "react";
+/* eslint-disable react/prop-types */
 import Tile from "./Tile";
-import Context from "../../context/Context";
 
-// eslint-disable-next-line react/prop-types
-const TileList = ({ listIndex }) => {
+const TileList = ({ listIndex, state, wordNotValid }) => {
   const arr = Array(5).fill(0);
-  const state = useContext(Context);
+  const wordNotValidClass =
+    listIndex === state.listIndex && wordNotValid === "ERROR_PRESENT";
+
   const tiles = arr.map((el, i) => (
     <Tile
       key={i + `${el}`}
@@ -14,8 +14,14 @@ const TileList = ({ listIndex }) => {
       state={state}
     />
   ));
+
   return (
-    <div className=" max-w-[300px] flex mx-auto space-x-[5px] my-[5px] app">
+    <div
+      className={`${
+        // eslint-disable-next-line react/prop-types
+        wordNotValidClass ? "moveLeftRight" : ""
+      } max-w-[300px] flex mx-auto space-x-[5px] my-[5px] `}
+    >
       {tiles}
     </div>
   );
