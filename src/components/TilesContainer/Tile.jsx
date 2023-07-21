@@ -68,21 +68,22 @@ const Tile = ({ listIndex, tileIndex, state }) => {
       });
     }
   };
-
+  
+  const lastElem = state.allUserInputWord[5];
   useEffect(() => {
     inputRef.current.classList.remove("scaled");
     inputRef.current.style.setProperty("--delay", `${tileIndex * 0.5}s`);
     window.addEventListener("keydown", () => {
       // incase focus is lost.. auto-focus when any key is clicked
-      if (isEqual) {
+      if (isEqual && !state.success) {
         inputRef.current.focus();
       }
     });
 
-    if (isEqual) {
+    if (isEqual && !state.success && !lastElem.filled) {
       inputRef.current.focus();
     }
-  }, [isEqual, tileIndex]);
+  }, [isEqual, lastElem.filled, state.success, tileIndex]);
 
   useEffect(() => {
     // auto-fill previous answers
@@ -110,7 +111,8 @@ const Tile = ({ listIndex, tileIndex, state }) => {
       onChange={changeHandler}
       onKeyUp={keyUpHandler}
       onKeyDown={keyDownHandler}
-      disabled={!isEqual}
+      // disabled={!isEqual}
+      disabled={isEqual && !state.success && !lastElem.filled ? false : true}
       className={`
       } h-[3.25rem] w-[3.25rem] border-[2px] text-center text-[2rem] font-inter font uppercase font-[700]`}
     />

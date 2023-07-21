@@ -39,6 +39,7 @@ const TilesMain = ({ unique }) => {
         listIndex: ctx.listIndex,
         colorState,
         allUserInputWord: ctx.allUserInputWord,
+        success: validWord === stringValue,
       });
       setWordNotValid("");
     } catch (e) {

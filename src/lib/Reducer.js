@@ -54,6 +54,7 @@ export const dataReducer = (state, action) => {
   if (action.type === consts.UPDATEVALID_WORD_STATE) {
     return {
       ...state,
+      success: action.success,
       tileIndex: 1,
       userWord: [],
       listIndex: state.listIndex + 1 >= 6 ? 6 : state.listIndex + 1,
