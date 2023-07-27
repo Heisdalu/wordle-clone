@@ -1,9 +1,9 @@
 import KeyButton from "../Keyboard/KeyButton";
 
 const Keyboard = () => {
-  const firstArr = ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"];
-  const secondArr = ["A", "S", "D", "F", "G", "H", "J", "K", "L"];
-  const thirdArr = ["Enter", "Z", "X", "C", "V", "B", "N", "M", "Del"];
+  const firstArr = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"];
+  const secondArr = ["a", "s", "d", "f", "g", "h", "j", "k", "l"];
+  const thirdArr = ["Enter", "z", "x", "c", "v", "b", "n", "m", "Del"];
   return (
     <div className="border-1 border-gray-950 max-w-[350px] mx-auto md:max-w-[400px]">
       <div className="flex space-x-[5px]">

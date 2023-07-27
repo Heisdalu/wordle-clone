@@ -14,14 +14,10 @@ const Tile = ({ listIndex, tileIndex, state }) => {
   const isEqual =
     listIndex === state.listIndex && tileIndex === state.tileIndex;
 
-  // const animateClass = state.listIndex === listIndex;
-
   const changeHandler = (e) => {
     const numberType = Number(e.target.value);
     if (numberType) return (e.target.value = "");
     e.target.value = e.target.value.slice(0, 1);
-    // e.target.style.setProperty("--color", "#ed2");
-    // console.dir(e.target);
   };
 
   const keyDownHandler = (e) => {
@@ -53,9 +49,7 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     }
 
     if (e.keyCode >= 65 && e.keyCode <= 90) {
-      // e.target.style.setProperty("--color", "#ed2");
-      // e.target.style.setProperty("--delay", `${tileIndex * 0.5}s`);
-      isEqual ? inputRef.current.classList.add("scaled") : "";
+      console.log(tileIndex, listIndex);
 
       state.updateIndex({ type: TILEINDEX, value: state.tileIndex });
       state.updateWord({
@@ -68,10 +62,11 @@ const Tile = ({ listIndex, tileIndex, state }) => {
       });
     }
   };
-  
+
+  // check if the last is filled in order to disabled all input
   const lastElem = state.allUserInputWord[5];
+
   useEffect(() => {
-    inputRef.current.classList.remove("scaled");
     inputRef.current.style.setProperty("--delay", `${tileIndex * 0.5}s`);
     window.addEventListener("keydown", () => {
       // incase focus is lost.. auto-focus when any key is clicked
@@ -90,7 +85,7 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     const validObj = [...state.allUserInputWord][listIndex - 1];
 
     if (validObj.filled) {
-      console.log(validObj, listIndex, tileIndex);
+      // console.log(validObj, listIndex, tileIndex);
       inputRef.current.value = validObj.wordInputted[tileIndex - 1] || "";
       inputRef.current.style.setProperty(
         "--color",
@@ -104,6 +99,35 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     }
   }, [listIndex, state.allUserInputWord, tileIndex]);
 
+  useEffect(() => {
+    const handleClick = (e) => {
+      const datasetValue = e.target.closest(".Del");
+      const del = datasetValue?.dataset?.value;
+      if (isEqual && datasetValue && del === "Del") {
+        console.log(datasetValue.dataset.value);
+
+        inputRef.current.value.length === 1
+          ? (inputRef.current.value = "")
+          : state.updateIndex({
+              type: REDUCE_TILEINDEX,
+              value: state.tileIndex,
+            });
+
+        state.updateWord({
+          type: DECREASE_WORD,
+          userWord: state.userWord,
+          index: tileIndex,
+          listIndex: listIndex,
+          allUserInputWord: state.allUserInputWord,
+        });
+      }
+    };
+
+    window.addEventListener("click", handleClick);
+
+    return () => window.removeEventListener("click", handleClick);
+  }, [isEqual, listIndex, state, tileIndex]);
+
   return (
     <input
       type="text"
@@ -111,10 +135,9 @@ const Tile = ({ listIndex, tileIndex, state }) => {
       onChange={changeHandler}
       onKeyUp={keyUpHandler}
       onKeyDown={keyDownHandler}
-      // disabled={!isEqual}
       disabled={isEqual && !state.success && !lastElem.filled ? false : true}
-      className={`
-      } h-[3.25rem] w-[3.25rem] border-[2px] text-center text-[2rem] font-inter font uppercase font-[700]`}
+      className="
+      } h-[3.25rem] w-[3.25rem] border-[2px] text-center text-[2rem] font-inter font uppercase font-[700]"
     />
   );
 };

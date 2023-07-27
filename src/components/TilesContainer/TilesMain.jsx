@@ -10,7 +10,6 @@ const TilesMain = ({ unique }) => {
 
   const [wordNotValid, setWordNotValid] = useState("");
 
-  // console.log("z".codePointAt());
   const arr = Array(6).fill(0);
   const data = arr.map((el, i) => (
     <TileList
@@ -21,19 +20,21 @@ const TilesMain = ({ unique }) => {
     />
   ));
 
-  console.log(wordNotValid);
-  // colorFunc("daddy", "wears");
-
   const click = async (value) => {
+    const isAllLetters = value.every(
+      (el) => el.codePointAt() >= 97 && el.codePointAt() <= 122
+    );
+
+    if (value.length !== 5 || !isAllLetters) return;
+
     const validWord = unique.toString(36);
-    // console.log(validWord);
     const stringValue = value.join("");
-    // console.log(stringValue);
+
     try {
-      const wordisValid = await axios(
+      await axios(
         `https://api.dictionaryapi.dev/api/v2/entries/en/${stringValue}`
       );
-      console.log(wordisValid);
+      // word is exist in the dictionary
       const colorState = colorFunc(validWord, stringValue);
       ctx.checkWordisValidState({
         listIndex: ctx.listIndex,
@@ -43,19 +44,18 @@ const TilesMain = ({ unique }) => {
       });
       setWordNotValid("");
     } catch (e) {
-      console.log(e);
       if (e.message === "Network Error") {
         setWordNotValid("NETWORK_ERROR");
       }
       if (e.message.includes("Request failed")) {
-        setWordNotValid("ERROR_PRESENT");
+        // add an identifer cuz if the word is not word twice.. the state does not rerender.. sp we set an identifer to cause a rerender when word is not found
+        setWordNotValid(`ERROR_PRESENT${+new Date()}`);
       }
-
-      console.log(e.message);
     }
   };
 
   useEffect(() => {
+    const word = [...ctx.userWord];
     window.addEventListener(
       "keydown",
       (e) => {
@@ -64,20 +64,26 @@ const TilesMain = ({ unique }) => {
         }
 
         if (e.key === "Enter") {
-          const word = [...ctx.userWord];
-          console.log(word);
-          const isAllLetters = word.every(
-            (el) => el.codePointAt() >= 97 && el.codePointAt() <= 122
-          );
-
-          console.log(word.length !== 5, isAllLetters);
-
-          if (word.length !== 5 || !isAllLetters) return;
           click(word);
         }
       },
       { once: true }
     );
+
+    const virtual = (e) => {
+      if (e.target.dataset.value !== "Enter") return;
+      click(word);
+    };
+
+    document
+      .querySelector(".enter")
+      ?.addEventListener("click", virtual, { once: true });
+
+    return () =>
+      document
+        .querySelector(".enter")
+        ?.removeEventListener("click", virtual, { once: true });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctx.userWord]);
 
   return <div className="m-[2rem]">{data}</div>;
