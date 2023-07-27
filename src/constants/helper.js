@@ -13,7 +13,7 @@ export const dataFunc = (obj) => {
   const newDataFortheDay = {
     ...localData,
     currentDate: +new Date(),
-    unique:null,
+    unique: null,
     listIndex: 1,
     tileIndex: 1,
     allUserInputWord: RESULT_OBJ,
@@ -45,18 +45,6 @@ export const colorFunc = (word = "thank", userWord) => {
 
   console.log(wordState);
   return wordState;
-
-  //   if (!word.includes(letter)) {
-  //     color = "#787C7E";
-  //   }.
-
-  // if (present) {
-  //   console.log(word.indexOf(letter));
-  //   const sameLetter = word[index - 1];
-  //   color = sameLetter === letter ? "#6AAA64" : "#C9B458";
-  // }
-
-  // return "#6AAA64";
 };
 
 export const hashUnique = (value) => {
@@ -64,5 +52,28 @@ export const hashUnique = (value) => {
 };
 
 export const colorDetector = (value) => {
-  return value === "G" ? "#6AAA64" : value === "Y" ? "#C9B458" : "#787C7E";
+  return value === "G"
+    ? "#6AAA64"
+    : value === "Y"
+    ? "#C9B458"
+    : value === "R"
+    ? "#787C7E"
+    : "#D3D6DA";
+};
+
+export const keyBoardColor = (alphabets, word, state) => {
+  const alpha = { ...alphabets };
+
+  for (let i = 0; i < word.length; i++) {
+    console.log(word[i], state[i], alpha);
+    if (alpha[word[i]] === "D") {
+      alpha[word[i]] = state[i];
+    }
+
+    if (alpha[word[i]] === "Y" && state[i] === "G") {
+      alpha[word[i]] = "G";
+    }
+  }
+
+  return alpha;
 };

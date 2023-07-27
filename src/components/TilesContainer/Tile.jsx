@@ -49,8 +49,6 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     }
 
     if (e.keyCode >= 65 && e.keyCode <= 90) {
-      console.log(tileIndex, listIndex);
-
       state.updateIndex({ type: TILEINDEX, value: state.tileIndex });
       state.updateWord({
         type: INCREASE_WORD,
@@ -85,7 +83,6 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     const validObj = [...state.allUserInputWord][listIndex - 1];
 
     if (validObj.filled) {
-      // console.log(validObj, listIndex, tileIndex);
       inputRef.current.value = validObj.wordInputted[tileIndex - 1] || "";
       inputRef.current.style.setProperty(
         "--color",
@@ -104,6 +101,7 @@ const Tile = ({ listIndex, tileIndex, state }) => {
       const datasetValue = e.target.closest(".Del");
       const del = datasetValue?.dataset?.value;
       if (isEqual && datasetValue && del === "Del") {
+        if (!state.success === false || !lastElem.filled === false) return;
         console.log(datasetValue.dataset.value);
 
         inputRef.current.value.length === 1
@@ -126,6 +124,7 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     window.addEventListener("click", handleClick);
 
     return () => window.removeEventListener("click", handleClick);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEqual, listIndex, state, tileIndex]);
 
   return (

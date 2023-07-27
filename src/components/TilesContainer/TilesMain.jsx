@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import TileList from "./TileList";
 import axios from "axios";
 import Context from "../../context/Context";
-import { colorFunc } from "../../constants/helper";
+import { colorFunc, keyBoardColor } from "../../constants/helper";
 
 // eslint-disable-next-line react/prop-types
 const TilesMain = ({ unique }) => {
@@ -36,12 +36,23 @@ const TilesMain = ({ unique }) => {
       );
       // word is exist in the dictionary
       const colorState = colorFunc(validWord, stringValue);
+      const newAlphabetsObj = keyBoardColor(
+        ctx.alphabets,
+        stringValue,
+        colorState
+      );
+
+      console.log(newAlphabetsObj);
+
+      console.log(stringValue, colorState);
       ctx.checkWordisValidState({
         listIndex: ctx.listIndex,
         colorState,
         allUserInputWord: ctx.allUserInputWord,
         success: validWord === stringValue,
+        alphabets: newAlphabetsObj,
       });
+
       setWordNotValid("");
     } catch (e) {
       if (e.message === "Network Error") {

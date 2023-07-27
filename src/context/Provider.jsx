@@ -6,6 +6,7 @@ import { dataFunc, saveData } from "../constants/helper";
 
 const intial = {
   currentDate: +new Date(),
+  alphabets: consts.ALPHABETS,
   success: false,
   unique: null,
   listIndex: 1,
@@ -74,6 +75,7 @@ export const ContextProvider = ({ children }) => {
       type: consts.UPDATEVALID_WORD_STATE,
       value: allObj,
       success: obj.success,
+      alphabets: obj.alphabets,
     });
   };
 

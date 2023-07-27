@@ -6,19 +6,13 @@ import axios from "axios";
 import Context from "./context/Context";
 
 const App = () => {
-  // console.log(day, month, year);
   const { unique, updateUnique } = useContext(Context);
-  // const binary = "divine";
-  // const [data, setData] = useState("");
   const [error, setError] = useState(false);
-
-  console.log(error);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios("https://api.frontendeval.com/fake/word");
-        console.log(response.data);
         const hashWord = Number.parseInt(response.data, 36);
         updateUnique(hashWord);
       } catch (e) {
@@ -37,7 +31,6 @@ const App = () => {
     );
   }
 
-  // console.log((present - before) / (1000 * 60 * 60 * 24));
   return (
     <div className="app">
       <Header />

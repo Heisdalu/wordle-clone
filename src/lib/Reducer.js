@@ -55,6 +55,7 @@ export const dataReducer = (state, action) => {
     return {
       ...state,
       success: action.success,
+      alphabets: action.alphabets,
       tileIndex: 1,
       userWord: [],
       listIndex: state.listIndex + 1 >= 6 ? 6 : state.listIndex + 1,

@@ -26,7 +26,7 @@ const TileList = ({ listIndex, state, wordNotValid }) => {
 
     removeTimeOut = () => {
       setTimeout(() => {
-        listRef.current.classList.remove("moveLeftRight");
+        listRef.current?.classList?.remove("moveLeftRight");
       }, 800);
     };
 
