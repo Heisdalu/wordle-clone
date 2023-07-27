@@ -1,4 +1,4 @@
-import KeyButton from "../Keyboard/KeyButton";
+import KeyButton from "./KeyButton";
 
 const Keyboard = () => {
   const firstArr = ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"];

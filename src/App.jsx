@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import Header from "./components/Header/Header";
-import Keyboard from "./components/KeyBoard/Keyboard";
+import Keyboard from "./components/VirtualKeyboard/Keyboard";
 import TilesMain from "./components/TilesContainer/TilesMain";
 import axios from "axios";
 import Context from "./context/Context";
@@ -12,7 +12,6 @@ const App = () => {
   const { unique, updateUnique, success } = useContext(Context);
   const [error, setError] = useState(false);
   const { width, height } = useWindowSize();
-
 
   const [loading, setLoading] = useState(false);
 
@@ -34,7 +33,6 @@ const App = () => {
     !unique && fetchData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [unique]);
-
 
   if (loading) {
     return (
