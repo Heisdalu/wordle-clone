@@ -3,12 +3,14 @@ import TileList from "./TileList";
 import axios from "axios";
 import Context from "../../context/Context";
 import { colorFunc, keyBoardColor } from "../../constants/helper";
+import Loading from "../../assets/Loading";
 
 // eslint-disable-next-line react/prop-types
 const TilesMain = ({ unique }) => {
   const ctx = useContext(Context);
 
   const [wordNotValid, setWordNotValid] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const arr = Array(6).fill(0);
   const data = arr.map((el, i) => (
@@ -30,6 +32,7 @@ const TilesMain = ({ unique }) => {
     const validWord = unique.toString(36);
     const stringValue = value.join("");
 
+    setLoading(true);
     try {
       await axios(
         `https://api.dictionaryapi.dev/api/v2/entries/en/${stringValue}`
@@ -42,9 +45,6 @@ const TilesMain = ({ unique }) => {
         colorState
       );
 
-      console.log(newAlphabetsObj);
-
-      console.log(stringValue, colorState);
       ctx.checkWordisValidState({
         listIndex: ctx.listIndex,
         colorState,
@@ -62,6 +62,8 @@ const TilesMain = ({ unique }) => {
         // add an identifer cuz if the word is not word twice.. the state does not rerender.. sp we set an identifer to cause a rerender when word is not found
         setWordNotValid(`ERROR_PRESENT${+new Date()}`);
       }
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -97,6 +99,15 @@ const TilesMain = ({ unique }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctx.userWord]);
 
-  return <div className="m-[2rem]">{data}</div>;
+  return (
+    <div className="m-[2rem]">
+      {loading && (
+        <div className="absolute right-0 top-[70px] h-[10px] md:right-[30px]">
+          <Loading />
+        </div>
+      )}
+      {data}
+    </div>
+  );
 };
 export default TilesMain;

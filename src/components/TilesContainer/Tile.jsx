@@ -102,7 +102,6 @@ const Tile = ({ listIndex, tileIndex, state }) => {
       const del = datasetValue?.dataset?.value;
       if (isEqual && datasetValue && del === "Del") {
         if (!state.success === false || !lastElem.filled === false) return;
-        console.log(datasetValue.dataset.value);
 
         inputRef.current.value.length === 1
           ? (inputRef.current.value = "")

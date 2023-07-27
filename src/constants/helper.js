@@ -20,11 +20,8 @@ export const dataFunc = (obj) => {
     userWord: [],
   };
 
-  //   console.log(newDay >= 1);
-  //   console.log(localData);
   return newDay >= 1 ? newDataFortheDay : localData;
 
-  //   console.log((presentDate - dateAt00AM) / (1000 * 60 * 60 * 24));
 };
 
 export const saveData = (obj) => {
@@ -43,7 +40,6 @@ export const colorFunc = (word = "thank", userWord) => {
     }
   }
 
-  console.log(wordState);
   return wordState;
 };
 
@@ -65,7 +61,6 @@ export const keyBoardColor = (alphabets, word, state) => {
   const alpha = { ...alphabets };
 
   for (let i = 0; i < word.length; i++) {
-    console.log(word[i], state[i], alpha);
     if (alpha[word[i]] === "D") {
       alpha[word[i]] = state[i];
     }
