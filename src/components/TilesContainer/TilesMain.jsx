@@ -90,12 +90,12 @@ const TilesMain = ({ unique }) => {
 
     document
       .querySelector(".enter")
-      ?.addEventListener("click", virtual, { once: true });
+      ?.addEventListener("click", virtual);
 
     return () =>
       document
         .querySelector(".enter")
-        ?.removeEventListener("click", virtual, { once: true });
+        ?.removeEventListener("click", virtual);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctx.userWord]);
 

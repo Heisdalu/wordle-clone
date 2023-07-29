@@ -1,4 +1,4 @@
-import { WORLDE, RESULT_OBJ } from "./constant";
+import { WORLDE, RESULT_OBJ, ALPHABETS } from "./constant";
 
 export const dataFunc = (obj) => {
   const presentDate = +new Date();
@@ -17,11 +17,11 @@ export const dataFunc = (obj) => {
     listIndex: 1,
     tileIndex: 1,
     allUserInputWord: RESULT_OBJ,
+    alphabets: ALPHABETS,
     userWord: [],
   };
 
   return newDay >= 1 ? newDataFortheDay : localData;
-
 };
 
 export const saveData = (obj) => {

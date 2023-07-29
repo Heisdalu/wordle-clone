@@ -123,7 +123,7 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     window.addEventListener("click", handleClick);
 
     return () => window.removeEventListener("click", handleClick);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEqual, listIndex, state, tileIndex]);
 
   return (
@@ -135,7 +135,7 @@ const Tile = ({ listIndex, tileIndex, state }) => {
       onKeyDown={keyDownHandler}
       disabled={isEqual && !state.success && !lastElem.filled ? false : true}
       className="
-      } h-[3.25rem] w-[3.25rem] border-[2px] text-center text-[2rem] font-inter font uppercase font-[700]"
+      } h-[3.25rem] w-[3.25rem] border-[2px] text-center text-[2rem] font-inter font uppercase font-[700] text-[#000]"
     />
   );
 };
