@@ -91,6 +91,7 @@ const Tile = ({ listIndex, tileIndex, state }) => {
         "--color",
         colorDetector(validObj.state[tileIndex - 1])
       );
+      inputRef.current.style.setProperty("--white", "#ffffff");
       inputRef.current.classList.add("animate");
     }
 

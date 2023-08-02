@@ -34,10 +34,6 @@
   }
 
   @keyframes yes {
-    0% {
-      background-color: #ffffff;
-    }
-
     50% {
       transform: rotateX(90deg);
       transform-origin: center;
@@ -54,7 +50,7 @@
       transform: rotateX(360deg);
       transform-origin: center;
       background-color: var(--color);
-      color: #fff;
+      color: var(--white);
       border: 1px solid var(--color);
       opacity: 1;
     }
