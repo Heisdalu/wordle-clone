@@ -18,6 +18,7 @@ export default {
       },
       colors: {
         gen: "#D3D6DA",
+        blacked: '#000'
       },
       backgroundColor: {
         blackDis: "#efefef4d",
