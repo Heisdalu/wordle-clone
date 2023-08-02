@@ -49,10 +49,11 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     }
 
     if (e.keyCode >= 65 && e.keyCode <= 90) {
+      console.log(e);
       state.updateIndex({ type: TILEINDEX, value: state.tileIndex });
       state.updateWord({
         type: INCREASE_WORD,
-        value: e.target.value,
+        value: e.key,
         userWord: state.userWord,
         allUserInputWord: state.allUserInputWord,
         index: tileIndex,
@@ -69,12 +70,12 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     window.addEventListener("keydown", () => {
       // incase focus is lost.. auto-focus when any key is clicked
       if (isEqual && !state.success) {
-        inputRef.current.focus();
+        inputRef.current?.focus();
       }
     });
 
     if (isEqual && !state.success && !lastElem.filled) {
-      inputRef.current.focus();
+      inputRef.current?.focus();
     }
   }, [isEqual, lastElem.filled, state.success, tileIndex]);
 
@@ -129,6 +130,7 @@ const Tile = ({ listIndex, tileIndex, state }) => {
   return (
     <input
       type="text"
+      readOnly={true}
       ref={inputRef}
       onChange={changeHandler}
       onKeyUp={keyUpHandler}

@@ -12,6 +12,7 @@ export const dataFunc = (obj) => {
   // pasreint has issues for 0.00000000000000000000005 gives 5.. check alternatives
   const newDataFortheDay = {
     ...localData,
+    success: false,
     currentDate: +new Date(),
     unique: null,
     listIndex: 1,
