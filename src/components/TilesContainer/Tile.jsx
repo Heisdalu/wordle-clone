@@ -142,7 +142,7 @@ const Tile = ({ listIndex, tileIndex, state }) => {
       onKeyDown={keyDownHandler}
       disabled={isEqual && !state.success && !lastElem.filled ? false : true}
       className={`
-      } h-[3.25rem] w-[3.25rem] border-[2px] text-center text-[2rem] text-blacked font-inter font uppercase font-[700] ${
+      } h-[3.25rem] w-[3.25rem] border-[2px] text-center text-[2rem] blacked font-inter font uppercase font-[700] ${
         disabled ? "bg-blackDis" : "bg-whiteDis"
       }`}
     />
