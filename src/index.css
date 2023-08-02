@@ -6,6 +6,7 @@
   .app {
     perspective: 1000px;
     perspective-origin: top;
+    /* color: #ff0000; */
   }
 
   input:focus {

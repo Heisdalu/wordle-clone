@@ -19,6 +19,10 @@ export default {
       colors: {
         gen: "#D3D6DA",
       },
+      backgroundColor: {
+        blackDis: "#efefef4d",
+        whiteDis: "#fff",
+      },
     },
   },
   plugins: [],

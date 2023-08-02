@@ -11,8 +11,11 @@ import { colorDetector } from "../../constants/helper";
 
 const Tile = ({ listIndex, tileIndex, state }) => {
   const inputRef = useRef();
+  const lastElem = state.allUserInputWord[5];
   const isEqual =
     listIndex === state.listIndex && tileIndex === state.tileIndex;
+
+  const disabled = isEqual && !state.success && !lastElem.filled ? false : true;
 
   const changeHandler = (e) => {
     const numberType = Number(e.target.value);
@@ -49,7 +52,7 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     }
 
     if (e.keyCode >= 65 && e.keyCode <= 90) {
-      console.log(e);
+      // console.log(e);
       state.updateIndex({ type: TILEINDEX, value: state.tileIndex });
       state.updateWord({
         type: INCREASE_WORD,
@@ -63,7 +66,6 @@ const Tile = ({ listIndex, tileIndex, state }) => {
   };
 
   // check if the last is filled in order to disabled all input
-  const lastElem = state.allUserInputWord[5];
 
   useEffect(() => {
     inputRef.current.style.setProperty("--delay", `${tileIndex * 0.5}s`);
@@ -127,17 +129,22 @@ const Tile = ({ listIndex, tileIndex, state }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isEqual, listIndex, state, tileIndex]);
 
+  // disabled ? "#efefef4d" : "#000";
+
   return (
     <input
       type="text"
+      aria-label="Editable Input Field"
       readOnly={true}
       ref={inputRef}
       onChange={changeHandler}
       onKeyUp={keyUpHandler}
       onKeyDown={keyDownHandler}
       disabled={isEqual && !state.success && !lastElem.filled ? false : true}
-      className="
-      } h-[3.25rem] w-[3.25rem] border-[2px] text-center text-[2rem] font-inter font uppercase font-[700] text-[#000]"
+      className={`
+      } h-[3.25rem] w-[3.25rem] border-[2px] text-center text-[2rem] font-inter font uppercase font-[700] text-[#000] ${
+        disabled ? "bg-blackDis" : "bg-whiteDis"
+      }`}
     />
   );
 };
