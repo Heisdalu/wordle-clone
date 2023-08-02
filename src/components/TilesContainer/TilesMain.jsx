@@ -4,7 +4,7 @@ import axios from "axios";
 import Context from "../../context/Context";
 import { colorFunc, keyBoardColor } from "../../constants/helper";
 import Loading from "../../assets/Loading";
-
+import { toast } from "react-toastify";
 // eslint-disable-next-line react/prop-types
 const TilesMain = ({ unique }) => {
   const ctx = useContext(Context);
@@ -57,6 +57,16 @@ const TilesMain = ({ unique }) => {
     } catch (e) {
       if (e.message === "Network Error") {
         setWordNotValid("NETWORK_ERROR");
+        toast.error("No/Slow internet connection!", {
+          position: "top-center",
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
       }
       if (e.message.includes("Request failed")) {
         // add an identifer cuz if the word is not word twice.. the state does not rerender.. sp we set an identifer to cause a rerender when word is not found
@@ -88,14 +98,10 @@ const TilesMain = ({ unique }) => {
       click(word);
     };
 
-    document
-      .querySelector(".enter")
-      ?.addEventListener("click", virtual);
+    document.querySelector(".enter")?.addEventListener("click", virtual);
 
     return () =>
-      document
-        .querySelector(".enter")
-        ?.removeEventListener("click", virtual);
+      document.querySelector(".enter")?.removeEventListener("click", virtual);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctx.userWord]);
 

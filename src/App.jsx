@@ -7,6 +7,8 @@ import Context from "./context/Context";
 import Loading from "./assets/Loading";
 import Confetti from "react-confetti";
 import useWindowSize from "react-use-window-size";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const App = () => {
   const { unique, updateUnique, success } = useContext(Context);
@@ -14,6 +16,7 @@ const App = () => {
   const { width, height } = useWindowSize();
 
   const [loading, setLoading] = useState(false);
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -49,18 +52,33 @@ const App = () => {
   }
 
   return (
-    <div className="app">
-      <Header />
-      {success && (
-        <div className="text-center border-1 ">
-          <div>You won!!!</div>
-          <Confetti width={width} height={height} />
-        </div>
-      )}
+    <>
+      <ToastContainer
+        position="top-center"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        toastClassName="toasifyFont "
+      />
+      <div className="app">
+        <Header />
+        {success && (
+          <div className="text-center border-1 ">
+            <div>You won!!!</div>
+            <Confetti width={width} height={height} />
+          </div>
+        )}
 
-      <TilesMain unique={unique} />
-      <Keyboard />
-    </div>
+        <TilesMain unique={unique} />
+        <Keyboard />
+      </div>
+    </>
   );
 };
 
